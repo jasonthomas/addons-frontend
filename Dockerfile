@@ -11,14 +11,14 @@ RUN buildDeps=' \
     # install deps
     apt-get update -y && \
     apt-get install -y --no-install-recommends $buildDeps && \
-	npm install -g npm@4 && \
-	npm install && \
     # cleanup
     # apt-get purge -y $buildDeps && \
     rm -rf /var/lib/apt/lists/*
 
 ADD . /srv/code/
 WORKDIR /srv/code
+RUN npm update -g npm@4
+RUN	npm install
 
 # Replace the local node_modules with the ones we installed above.
 RUN rm -rf node_modules
